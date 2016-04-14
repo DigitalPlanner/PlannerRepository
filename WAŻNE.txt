@@ -1,0 +1,3 @@
+Aby uruchomiæ przy logowaniu nale¿y wpisaæ admin/admin.
+
+Wygl¹da na razie kiepsko i trzeba dodaæ kilka okien :P wszelkie pomys³y mile widziane :) 
