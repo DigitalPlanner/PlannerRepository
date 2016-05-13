@@ -164,6 +164,7 @@ public class OknoLogowania extends javax.swing.JFrame {
 		if (jPasswordField1.getText().equals("admin") && jTextField1.getText().equals("admin")) {
 			DigiPlannerFrame digiPlannerFrame = new DigiPlannerFrame();
 			digiPlannerFrame.setVisible(true);
+			dispose();
 
 		} else {
 			WrongDataDialog wrongDataDialog = new WrongDataDialog(this, rootPaneCheckingEnabled);

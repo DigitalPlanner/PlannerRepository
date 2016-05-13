@@ -25,7 +25,7 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 		endButton = new javax.swing.JButton();
 		getList = new javax.swing.JButton();
 		sendSchedule = new javax.swing.JButton();
-		selectStudent = new javax.swing.JButton();
+		changeStudentInfo = new javax.swing.JButton();
 		selectTerm = new javax.swing.JButton();
 		selectActivities = new javax.swing.JButton();
 		selectLecturer = new javax.swing.JButton();
@@ -66,15 +66,16 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JDBCConnection.makeConnection();
-				for(int i =0;i<JDBCConnection.queryStudents().size();i++)
-				textArea.append(JDBCConnection.queryStudents().get(i)+"\n");
+				textArea.setText("");
+				for (int i = 0; i < JDBCConnection.queryStudents().size(); i++)
+					textArea.append(JDBCConnection.queryStudents().get(i) + "\n");
 
 			}
 		});
 
 		sendSchedule.setText("Wyœlij grafik");
 
-		selectStudent.setText("Wybierz studenta");
+		changeStudentInfo.setText("Zmieñ dane");
 
 		selectTerm.setText("Wybierz termin");
 
@@ -141,6 +142,24 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 
 			}
 		});
+		removeStudent.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JDBCConnection.makeConnection();
+				DeleteStudentFromDatabase okno = new DeleteStudentFromDatabase();
+
+			}
+		});
+		changeStudentInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JDBCConnection.makeConnection();
+				ChangeStudentParameters okno = new ChangeStudentParameters();
+				
+			}
+		});
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -159,7 +178,7 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 														Short.MAX_VALUE)
 												.addGroup(layout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(selectStudent).addComponent(selectTerm)
+														.addComponent(changeStudentInfo).addComponent(selectTerm)
 														.addComponent(selectActivities).addComponent(selectLecturer)
 														.addComponent(selectSubject))
 												.addGap(18, 18, 18).addComponent(scrollPane,
@@ -171,7 +190,7 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(scrollPane,
 								javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup().addGap(58, 58, 58).addComponent(selectStudent)
+						.addGroup(layout.createSequentialGroup().addGap(58, 58, 58).addComponent(changeStudentInfo)
 								.addGap(18, 18, 18).addComponent(selectTerm).addGap(18, 18, 18)
 								.addComponent(selectActivities).addGap(18, 18, 18).addComponent(selectLecturer)
 								.addGap(18, 18, 18).addComponent(selectSubject)))
@@ -191,7 +210,7 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 	private javax.swing.JButton endButton;
 	private javax.swing.JButton getList;
 	private javax.swing.JButton sendSchedule;
-	private javax.swing.JButton selectStudent;
+	private javax.swing.JButton changeStudentInfo;
 	private javax.swing.JButton selectTerm;
 	private javax.swing.JButton selectActivities;
 	private javax.swing.JButton selectLecturer;

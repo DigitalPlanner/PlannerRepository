@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 public class JDBCConnection {
 
 	private static final String DATABASEURL = "jdbc:mysql://127.0.0.1:3306/";
@@ -45,8 +47,8 @@ public class JDBCConnection {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				dataFromBase = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4)
-						+ " " + rs.getString(5);
+				dataFromBase = rs.getString(1) + ". " + rs.getString(2) + " " + rs.getString(3) + " | "
+						+ rs.getString(4) + " | " + rs.getString(5);
 				lista.add(dataFromBase);
 			}
 		} catch (SQLException e) {
@@ -71,4 +73,114 @@ public class JDBCConnection {
 			e.printStackTrace();
 		}
 	}
+
+	public static String findId(JComboBox<String> box) {
+
+		int selectedStudent = box.getSelectedIndex() + 1;
+		String id = null;
+		query = "select Id from studenci limit " + selectedStudent;
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				id = rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return id;
+
+	}
+	
+	public static String findEmail(JComboBox<String> box) {
+
+		int selectedStudent = box.getSelectedIndex() + 1;
+		String email = null;
+		query = "select Email from studenci limit " + selectedStudent;
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				email = rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return email;
+
+	}
+	
+	
+
+	// usuwanie z bazy studenta o podanym id
+	public static boolean deleteStudent(int id) {
+		query = "delete from studenci where id=" + id;
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	// zmiana danych studenta w bazie
+	public static void changeStudentParameters(int id) {
+
+		String a = ChangeStudentParameters.getImieText().getText();
+		String b = ChangeStudentParameters.getNazwiskoText().getText();
+		String c = ChangeStudentParameters.getEmailText().getText();
+		String d = ChangeStudentParameters.getTelefonText().getText();
+
+		if (a.equals("") && b.equals("") && c.equals("") && d.equals("")) {
+			query = "update studenci set where Id=" + id;
+		} else if (a.equals("") && b.equals("") && c.equals("")) {
+			query = "update studenci set Telefon='" + d + "' where Id=" + id;
+		} else if (b.equals("") && c.equals("") && d.equals("")) {
+			query = "update studenci set Imie='" + a + "' where Id=" + id;
+		} else if (a.equals("") && b.equals("") && d.equals("")) {
+			query = "update studenci set Email='" + c + "' where Id=" + id;
+		} else if (a.equals("") && c.equals("") && d.equals("")) {
+			query = "update studenci set Nazwisko='" + b + "' where Id=" + id;
+		} else if (a.equals("") && b.equals("")) {
+			query = "update studenci set Email='" + c + "', Telefon='" + d + "' where Id=" + id;
+		} else if (a.equals("") && c.equals("")) {
+			query = "update studenci set Nazwisko='" + b + "', Telefon='" + d + "' where Id=" + id;
+		} else if (a.equals("") && d.equals("")) {
+			query = "update studenci set Nazwisko='" + b + "', Email='" + c + "' where Id=" + id;
+		} else if (b.equals("") && c.equals("")) {
+			query = "update studenci set Imie='" + a + "', Telefon='" + d + "' where Id=" + id;
+		} else if (b.equals("") && d.equals("")) {
+			query = "update studenci set Imie='" + a + "', Email='" + c + "' where Id=" + id;
+		} else if (c.equals("") && d.equals("")) {
+			query = "update studenci set Imie='" + a + "', Nazwisko='" + b + "' where Id=" + id;
+		} else if (a.equals("")) {
+			query = "update studenci set Nazwisko='" + b + "', Email='" + c + "', Telefon='" + d + "' where Id=" + id;
+		} else if (b.equals("")) {
+			query = "update studenci set Imie='" + a + "', Email='" + c + "', Telefon='" + d + "' where Id=" + id;
+		} else if (c.equals("")) {
+			query = "update studenci set Imie='" + a + "', Nazwisko='" + b + "', Telefon='" + d + "' where Id=" + id;
+		} else if (d.equals("")) {
+			query = "update studenci set Imie='" + a + "', Nazwisko='" + b + "', Email='" + c + "' where Id=" + id;
+		} else {
+			query = "update studenci set Imie='" + a + "', Nazwisko='" + b + "', Email='" + c + "', Telefon='" + d
+					+ "' where Id=" + id;
+		}
+
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
