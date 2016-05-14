@@ -119,10 +119,20 @@ public class SendEmailFrame extends JFrame {
 		
 		textArea = new JTextArea();
 		textArea.setColumns(30);
-		textArea.setRows(5);
+		textArea.setRows(10);
 		add(textArea);
 		
 		wyslij = new JButton("Wyœlij");
+		wyslij.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EmailOperations sendingMessage = new EmailOperations(textField.getText(), textArea.getText());
+				sendingMessage.sendMessage();
+				
+			}
+		});
+		
 		wyjdz = new JButton("Wyjdz");
 		
 		wyjdz.addActionListener(new ActionListener() {

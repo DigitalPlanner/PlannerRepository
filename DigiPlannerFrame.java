@@ -160,6 +160,16 @@ public class DigiPlannerFrame extends javax.swing.JFrame {
 				
 			}
 		});
+		
+		sendSchedule.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JDBCConnection.makeConnection();
+				SendEmailFrame start = new SendEmailFrame();
+				
+			}
+		});
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
